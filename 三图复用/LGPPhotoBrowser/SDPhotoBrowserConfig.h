@@ -45,6 +45,9 @@ typedef enum {
 //脚视图背景颜色
 #define LGPFootViewBackgroundColor [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.5]
 
+#define LGPPromptString @"已回到第一张";
+
+
 // 图片下载进度指示器内部控件间的间距
 #define SDWaitingViewItemMargin 10
 

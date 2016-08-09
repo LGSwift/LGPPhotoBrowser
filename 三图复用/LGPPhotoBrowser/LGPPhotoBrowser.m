@@ -6,6 +6,22 @@
 //  Copyright © 2016年 廖国朋. All rights reserved.
 //
 
+/*
+ 
+ *********************************************************************************
+ *                                                                                *
+ * 在您使此库的过程中如果出现bug请及时以以下任意一种方式联系我，我会及时修复bug。欢迎跟我一起学习  *
+ *                                                                     *
+ * 持续更新地址: https://github.com/LiaoGuopeng/LGPPhotoBrowser                              *
+ * QQ : 756581014
+ *
+ * Email : 756581014@qq.com                                                          *
+ * GitHub: https://github.com/LiaoGuopeng                                              *                                                                *
+ *                                                                                *
+ *********************************************************************************
+ 
+ */
+
 
 #import "LGPPhotoBrowser.h"
 #import "LGPBrowserImageView.h"
@@ -49,6 +65,9 @@
     _leftView = [[LGPBrowserImageView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
     _currentView = [[LGPBrowserImageView alloc]initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT)];
     _rightView = [[LGPBrowserImageView alloc]initWithFrame:CGRectMake(WIDTH*2, 0, WIDTH, HEIGHT)];
+    _leftView.tag = 2001;
+    _currentView.tag = 2002;
+    _rightView.tag = 2003;
     NSArray *arr = @[_leftView,_currentView,_rightView];
     _currentView.alpha = 0;
     for (LGPBrowserImageView *view in arr) {
@@ -85,7 +104,8 @@
     _indexLabel.font = [UIFont boldSystemFontOfSize:15];
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:@"く返回" forState:UIControlStateNormal];
+    [button setTitle:@"返回" forState:UIControlStateNormal];
+    
     button.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [button addTarget:self action:@selector(disMiss) forControlEvents:UIControlEventTouchUpInside];
     button.frame = CGRectMake(0, 20, 80, 44);
@@ -170,7 +190,7 @@
             _indexLabel.text = [NSString stringWithFormat:@"%@",self.titles[0]];
             
         }else{
-            if (self.titles) {
+            if (self.titles.count>0) {
                 _indexLabel.text = [NSString stringWithFormat:@"%@\n%ld/%ld", self.titles[0], self.line + 1, self.photos.count];
             }else{
                 _indexLabel.text = [NSString stringWithFormat:@"%ld/%ld", self.line + 1, self.photos.count];
@@ -196,11 +216,25 @@
         
         _currentIndex = self.column;
         if (arr.count==1) {
-            _indexLabel.text = [NSString stringWithFormat:@"%@",self.titles[0]];
-        }else
-            _indexLabel.text = [NSString stringWithFormat:@"%@\n%ld/%ld", self.titles[(self.line<arr.count)?self.line:0],self.column + 1, arr.count];
+            if (self.titles.count>0) {
+                _indexLabel.text = [NSString stringWithFormat:@"%@",self.titles[0]];
+            }else{
+                _indexLabel.text = @"";
+            }
+        }else{
+            if (self.titles.count>0) {
+                _indexLabel.text = [NSString stringWithFormat:@"%@\n%ld/%ld", self.titles[(self.line<arr.count)?self.line:0],self.column + 1, arr.count];
+            }else{
+                _indexLabel.text = [NSString stringWithFormat:@"%ld/%ld",self.column + 1, arr.count];
+            }
+            
+        }
     }
-    if (self.contents&&![[self.contents[(self.line<self.photos.count)?self.line:0] class] isSubclassOfClass:[NSNull class]]) {
+
+    if (!self.contents||[self.contents[self.line] isEqualToString:@""]) {
+        [self.footView setFrame:CGRectMake(0, HEIGHT, WIDTH, 0)];
+        _contentLabel.text = @"";
+    }else{
         CGSize labelsize = [self labelString:self.contents[(self.line<self.photos.count)?self.line:0]];
         [_footView setFrame:CGRectMake(0, HEIGHT-labelsize.height-15, WIDTH, labelsize.height+20)];
         [_contentLabel setFrame:CGRectMake(5, 0, WIDTH-10, labelsize.height)];
@@ -209,14 +243,18 @@
     
     [self hanldeIndexWithCurrentIndex:_currentIndex];
 
+    [_currentView setImageWithURL:(_attribute==LGPPhotosIsOneDimensionalArray)?_photos[_currentIndex]:_photos[_line][_currentIndex] placeholderImage:(_attribute==LGPPhotosIsOneDimensionalArray)?[self gitPlaceholderImage:_currentIndex and:0]:[self gitPlaceholderImage:_line and:_currentIndex]];
+
     [self setImage];
     _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 42);
     
     if (self.tagViewImage) {
-        UIImageView *image = [[UIImageView alloc]initWithFrame:self.tagViewImage.frame];
+        UIImageView *image = [[UIImageView alloc]init];
         image.image = self.tagViewImage.image;
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        image.contentMode = self.tagViewImage.contentMode;
         [window addSubview:image];
+        image.frame = [self.tagViewImage.superview convertRect:self.tagViewImage.frame toView:window];
         CGSize imageSize = self.tagViewImage.image.size;
         [UIView animateWithDuration:SDPhotoBrowserShowImageAnimationDuration animations:^{
             image.center = self.center;
@@ -263,8 +301,8 @@
         }else{
             
             self.headView.frame = CGRectMake(0, 0, WIDTH, 64);
-            if (self.contents && [self.contents[(self.line<self.photos.count)?self.line:0] isEqualToString:@""]) {
-                [_contentLabel setFrame:CGRectMake(0, HEIGHT, WIDTH, 0)];
+            if (!self.contents || [self.contents[(self.line<self.photos.count)?self.line:0] isEqualToString:@""]) {
+                [self.footView setFrame:CGRectMake(0, HEIGHT, WIDTH, 0)];
             }else{
                 CGSize labelsize = [self labelString:self.contents[(self.line<self.photos.count)?self.line:0]];
                 [_footView setFrame:CGRectMake(0, HEIGHT-labelsize.height-15, WIDTH, labelsize.height+20)];
@@ -306,14 +344,26 @@
     
     
     if(scrollView.contentOffset.x >= WIDTH*2){
+        UIView *left = [self viewWithTag:2001];
+        UIView *current = [self viewWithTag:2002];
+        UIView *right = [self viewWithTag:2003];
+        [left setFrame:CGRectMake(WIDTH*2, 0, WIDTH, HEIGHT)];
+        [current setFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+        [right setFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT)];
+        left.tag = 2003;
+        current.tag = 2001;
+        right.tag = 2002;
         
         [_currentView clear];
-        
+        [_leftView clear];
+        [_rightView clear];
         _currentIndex++;
         if (_attribute==LGPPhotosIsOneDimensionalArray) {
 
             if(_currentIndex > (_photos.count - 1)){
-                
+                if (self.ifShowPromptview) {
+                    [self showPromptView];
+                }
                 _currentIndex = 0;
             }
             self.line = _currentIndex;
@@ -325,6 +375,9 @@
                 self.line += 1;
                 if (self.line > (_photos.count - 1)) {
                     self.line = 0;
+                    if (self.ifShowPromptview) {
+                        [self showPromptView];
+                    }
                 }
                 _currentIndex = 0;
             }
@@ -333,7 +386,19 @@
         
     }else if (scrollView.contentOffset.x <= 0){
         
+        UIView *left = [self viewWithTag:2001];
+        UIView *current = [self viewWithTag:2002];
+        UIView *right = [self viewWithTag:2003];
+        [left setFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT)];
+        [current setFrame:CGRectMake(WIDTH*2, 0, WIDTH, HEIGHT)];
+        [right setFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+        left.tag = 2002;
+        current.tag = 2003;
+        right.tag = 2001;
+        
         [_currentView clear];
+        [_leftView clear];
+        [_rightView clear];
         
         _currentIndex--;
         if (_attribute==LGPPhotosIsOneDimensionalArray) {
@@ -358,9 +423,14 @@
     }
     if (_attribute==LGPPhotosIsOneDimensionalArray) {
         if (self.photos.count==1) {
-            _indexLabel.text = [NSString stringWithFormat:@"%@",self.titles[0]];
+            
+            if (self.titles.count>0) {
+                _indexLabel.text = [NSString stringWithFormat:@"%@",self.titles[0]];
+            }else{
+                _indexLabel.text = @"";
+            }
         }else{
-            if (self.titles) {
+            if (self.titles.count>0) {
                 _indexLabel.text = [NSString stringWithFormat:@"%@\n%ld/%ld", self.titles[0], self.line + 1, self.photos.count];
             }else{
                 _indexLabel.text = [NSString stringWithFormat:@"%ld/%ld", self.line + 1, self.photos.count];
@@ -370,16 +440,26 @@
     }else{
         NSArray *arr = _photos[self.line];
          if (arr.count==1) {
-             _indexLabel.text = [NSString stringWithFormat:@"%@",self.titles[0]];
+             if (self.titles.count>0) {
+                 _indexLabel.text = [NSString stringWithFormat:@"%@",self.titles[self.line]];
+             }else{
+                 _indexLabel.text = @"";
+             }
          }else
-             _indexLabel.text = [NSString stringWithFormat:@"%@\n%ld/%ld",self.titles[0], self.column + 1, arr.count];
+         {
+             if (self.titles.count>0) {
+                 _indexLabel.text = [NSString stringWithFormat:@"%@\n%ld/%ld",self.titles[self.line], self.column + 1, arr.count];
+             }else
+                 _indexLabel.text = [NSString stringWithFormat:@"%ld/%ld", self.column + 1, arr.count];
+         }
     }
     
     [self hanldeIndexWithCurrentIndex:_currentIndex];
     
     if (self.headView.frame.origin.y == 0.0) {
-        if (self.contents&&[self.contents[self.line] isEqualToString:@""]) {
-            [_contentLabel setFrame:CGRectMake(0, HEIGHT, WIDTH, 0)];
+        if (!self.contents||[self.contents[self.line] isEqualToString:@""]) {
+            [self.footView setFrame:CGRectMake(0, HEIGHT, WIDTH, 0)];
+            _contentLabel.text = @"";
         }else{
             CGSize labelsize = [self labelString:self.contents[(self.line<self.photos.count)?self.line:0]];
             [_footView setFrame:CGRectMake(0, HEIGHT-labelsize.height-15, WIDTH, labelsize.height+20)];
@@ -395,18 +475,21 @@
 }
 
 - (void)setImage{
-    
-    [_currentView setImageWithURL:(_attribute==LGPPhotosIsOneDimensionalArray)?_photos[_currentIndex]:_photos[_line][_currentIndex] placeholderImage:(_attribute==LGPPhotosIsOneDimensionalArray)?[self gitPlaceholderImage:_currentIndex and:0]:[self gitPlaceholderImage:_line and:_currentIndex]];
+    _currentView = [self viewWithTag:2002];
+    _leftView    = [self viewWithTag:2001];
+    _rightView   = [self viewWithTag:2003];
     
     [_leftView setImageWithURL:(_attribute==LGPPhotosIsOneDimensionalArray)?_photos[_leftIndex]:_photos[_leftLine][_leftIndex] placeholderImage:(_attribute==LGPPhotosIsOneDimensionalArray)?[self gitPlaceholderImage:_leftIndex and:0]:[self gitPlaceholderImage:_leftLine and:_leftIndex]];
     
     [_rightView setImageWithURL:(_attribute==LGPPhotosIsOneDimensionalArray)?_photos[_rightIndex]:_photos[_rightLine][_rightIndex] placeholderImage:(_attribute==LGPPhotosIsOneDimensionalArray)?[self gitPlaceholderImage:_rightIndex and:0]:[self gitPlaceholderImage:_rightLine and:_rightIndex]];
+
 }
 
 - (UIImage *)gitPlaceholderImage:(NSInteger)line and:(NSInteger)index{
-    if (self.photoImageDelegate&&[self.photoImageDelegate respondsToSelector:@selector(photoBrowser:placeholderImageForIndex:)]) {
+    if (self.photoImageDelegate&&[self.photoImageDelegate respondsToSelector:@selector(photoBrowser:placeholderImageForIndexPath:)]) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:line inSection:index];
-       return [self.photoImageDelegate photoBrowser:self placeholderImageForIndex:indexPath];
+        UIImage *image = [self.photoImageDelegate photoBrowser:self placeholderImageForIndexPath:indexPath];
+        return image;
     }
     return _placeholderImage;
 }
@@ -415,7 +498,7 @@
     
     _leftIndex = curIndex - 1;
     _rightIndex = curIndex + 1;
-
+    
     if (_attribute==LGPPhotosIsOneDimensionalArray) {
         self.line = curIndex;
         if(_leftIndex < 0){
@@ -451,6 +534,7 @@
         }else{
             self.rightLine = self.line;
         }
+
     }
     
 }
@@ -491,6 +575,27 @@
         label.text = SDPhotoBrowserSaveImageSuccessText;
     }
     [label performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:1.0];
+}
+
+- (void)showPromptView{
+    UILabel *prom = [UILabel new];
+    prom.text = LGPPromptString;
+    prom.textColor = [UIColor whiteColor];
+    prom.textAlignment = NSTextAlignmentCenter;
+    prom.layer.cornerRadius = 5;//裁成圆角
+    prom.layer.masksToBounds = YES;
+    prom.bounds = CGRectMake(0, 0, WIDTH-140, 30);
+    prom.center = self.center;
+    [self addSubview:prom];
+    prom.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
+    //延时执行
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0.5 animations:^{
+            prom.alpha = 0;
+        }completion:^(BOOL finished) {
+            [prom removeFromSuperview];
+        }];
+    });
 }
 
 - (void)show
