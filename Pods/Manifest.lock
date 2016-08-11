@@ -1,50 +1,17 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
-    - AFNetworking/NSURLSession
-  - FLAnimatedImage (1.0.12)
   - Masonry (1.0.1)
-  - MJRefresh (3.1.12)
-  - PINCache (2.3)
-  - PINRemoteImage (3.0.0-beta.2):
-    - PINRemoteImage/FLAnimatedImage (= 3.0.0-beta.2)
-  - PINRemoteImage/Core (3.0.0-beta.2):
-    - PINCache (>= 2.1)
-  - PINRemoteImage/FLAnimatedImage (3.0.0-beta.2):
-    - FLAnimatedImage (>= 1.0)
-    - PINRemoteImage/Core
   - SDWebImage (3.8.1):
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.0)
   - Masonry (~> 1.0.0)
-  - MJRefresh
-  - PINRemoteImage (~> 3.0.0-beta.2)
   - SDWebImage
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
-  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
-  PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
-  PINRemoteImage: 197554c5ba57a6ae90f5db441651180039fc9062
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
 
-PODFILE CHECKSUM: 01ea157e24806fe644a63b789f053042c5a82de0
+PODFILE CHECKSUM: 858be9f78fb4bded2395aebbcb354edbd753a7bc
 
 COCOAPODS: 1.0.0

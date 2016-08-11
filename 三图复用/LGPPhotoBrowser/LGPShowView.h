@@ -10,7 +10,7 @@
 
 typedef enum {
     LGPViewFormatIsBlackBar, //默认
-    LGPViewFormatIsOptions // 为TableView在下放显示
+    LGPViewFormatIsOptions // 为TableView在下方显示
 } LGPViewFormat;
 
 @protocol ButtonClickDelegate<NSObject>

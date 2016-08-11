@@ -33,7 +33,7 @@
             [self.view addSubview:im];
             im.contentMode = UIViewContentModeScaleAspectFill;
             im.layer.masksToBounds = YES;
-            [im sd_setImageWithURL:[NSURL URLWithString:arr[y+i*3]]];
+            [im sd_setImageWithURL:[NSURL URLWithString:arr[y+i*3]] placeholderImage:[UIImage imageNamed:@"1"]];
             im.tag = 1000+y+i*3;
             UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoClic:)];
             [im addGestureRecognizer:singleTap];

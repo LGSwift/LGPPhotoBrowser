@@ -18,6 +18,7 @@
 		18886D821D5497F8007BECFA /* LGPPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18886D7B1D5497F8007BECFA /* LGPPhotoBrowser.m */; };
 		18886D831D5497F8007BECFA /* LGPShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18886D7D1D5497F8007BECFA /* LGPShowView.m */; };
 		18886D841D5497F8007BECFA /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18886D801D5497F8007BECFA /* SDWaitingView.m */; };
+		18F0F2611D5C5E1D0055569A /* 1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 18F0F2601D5C5E1D0055569A /* 1.jpeg */; };
 		6D471DF602A242D0CDCAC779 /* libPods-三图复用.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3586BED47E216406E4487C /* libPods-三图复用.a */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 		18886D7E1D5497F8007BECFA /* SDPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserConfig.h; sourceTree = "<group>"; };
 		18886D7F1D5497F8007BECFA /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
 		18886D801D5497F8007BECFA /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
+		18F0F2601D5C5E1D0055569A /* 1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpeg; sourceTree = "<group>"; };
 		2D66EF962D466FD281ACCBBB /* Pods-三图复用.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-三图复用.debug.xcconfig"; path = "Pods/Target Support Files/Pods-三图复用/Pods-三图复用.debug.xcconfig"; sourceTree = "<group>"; };
 		6797607F62CC3B7AA5FA0E62 /* Pods-三图复用.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-三图复用.release.xcconfig"; path = "Pods/Target Support Files/Pods-三图复用/Pods-三图复用.release.xcconfig"; sourceTree = "<group>"; };
 		BF3586BED47E216406E4487C /* libPods-三图复用.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-三图复用.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +88,7 @@
 				18886D4E1D5192CC007BECFA /* ViewController.m */,
 				18886D771D5497F8007BECFA /* LGPPhotoBrowser */,
 				18886D721D54215B007BECFA /* dian2.png */,
+				18F0F2601D5C5E1D0055569A /* 1.jpeg */,
 				18886D501D5192CC007BECFA /* Main.storyboard */,
 				18886D531D5192CC007BECFA /* Assets.xcassets */,
 				18886D551D5192CC007BECFA /* LaunchScreen.storyboard */,
@@ -197,6 +200,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18F0F2611D5C5E1D0055569A /* 1.jpeg in Resources */,
 				18886D571D5192CC007BECFA /* LaunchScreen.storyboard in Resources */,
 				18886D541D5192CC007BECFA /* Assets.xcassets in Resources */,
 				18886D731D54215B007BECFA /* dian2.png in Resources */,
