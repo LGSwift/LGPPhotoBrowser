@@ -248,7 +248,7 @@
     [self setImage];
     _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 42);
     
-    if (self.tagViewImage) {
+    if (self.tagViewImage.image) {
         UIImageView *image = [[UIImageView alloc]init];
         image.image = self.tagViewImage.image;
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
