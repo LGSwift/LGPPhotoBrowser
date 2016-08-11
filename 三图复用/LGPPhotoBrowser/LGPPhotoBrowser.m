@@ -10,7 +10,7 @@
  
  *********************************************************************************
  *                                                                                *
- * 在您使此库的过程中如果出现bug请及时以以下任意一种方式联系我，我会及时修复bug。欢迎跟我一起学习  *
+ * 在您使此库的过程中如果出现bug请及时以以下任意一种方式联系我，我会及时修复bug。欢迎联系我跟我一起学习  :-D*
  *                                                                     *
  * 持续更新地址: https://github.com/LiaoGuopeng/LGPPhotoBrowser                              *
  * QQ : 756581014
@@ -354,9 +354,6 @@
         current.tag = 2001;
         right.tag = 2002;
         
-        [_currentView clear];
-        [_leftView clear];
-        [_rightView clear];
         _currentIndex++;
         if (_attribute==LGPPhotosIsOneDimensionalArray) {
 
@@ -395,10 +392,6 @@
         left.tag = 2002;
         current.tag = 2003;
         right.tag = 2001;
-        
-        [_currentView clear];
-        [_leftView clear];
-        [_rightView clear];
         
         _currentIndex--;
         if (_attribute==LGPPhotosIsOneDimensionalArray) {
@@ -478,6 +471,9 @@
     _currentView = [self viewWithTag:2002];
     _leftView    = [self viewWithTag:2001];
     _rightView   = [self viewWithTag:2003];
+    
+    [_rightView clear];
+    [_leftView clear];
     
     [_leftView setImageWithURL:(_attribute==LGPPhotosIsOneDimensionalArray)?_photos[_leftIndex]:_photos[_leftLine][_leftIndex] placeholderImage:(_attribute==LGPPhotosIsOneDimensionalArray)?[self gitPlaceholderImage:_leftIndex and:0]:[self gitPlaceholderImage:_leftLine and:_leftIndex]];
     

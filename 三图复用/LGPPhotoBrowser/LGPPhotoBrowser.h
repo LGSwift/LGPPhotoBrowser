@@ -10,7 +10,7 @@
  
  *********************************************************************************
  *                                                                                *
- * 在您使此库的过程中如果出现bug请及时以以下任意一种方式联系我，我会及时修复bug。欢迎跟我一起学习  *
+ * 在您使此库的过程中如果出现bug请及时以以下任意一种方式联系我，我会及时修复bug。欢迎联系我跟我一起学习  :-D*
  *                                                                     *
  * 持续更新地址: https://github.com/LiaoGuopeng/LGPPhotoBrowser                              *
  * QQ : 756581014
@@ -64,7 +64,6 @@ typedef enum {
 @property (nonatomic,assign)NSInteger line;
 @property (nonatomic,assign)NSInteger column;
 
-@property (nonatomic,assign)NSInteger temporary;//为适应项目
 
 - (void)show;//显示
 
