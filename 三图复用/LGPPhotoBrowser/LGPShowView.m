@@ -8,7 +8,7 @@
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 
 #import "LGPShowView.h"
-#import <Masonry/Masonry.h>
+#import "Masonry/Masonry.h"
 
 @interface LGPShowView ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UIView *showView;

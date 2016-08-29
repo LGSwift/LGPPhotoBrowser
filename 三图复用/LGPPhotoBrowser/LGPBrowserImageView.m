@@ -7,7 +7,7 @@
 //
 
 #import "LGPBrowserImageView.h"
-#import <UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 #import "SDPhotoBrowserConfig.h"
 
 @interface LGPBrowserImageView ()
