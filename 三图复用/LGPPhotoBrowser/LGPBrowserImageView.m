@@ -215,6 +215,7 @@
         
         if (error) {
             UILabel *label = [[UILabel alloc] init];
+            label.tag = 1008;
             label.bounds = CGRectMake(0, 0, 160, 30);
             label.center = CGPointMake(imageViewWeak.bounds.size.width * 0.5, imageViewWeak.bounds.size.height * 0.5);
             label.text = @"图片加载失败";

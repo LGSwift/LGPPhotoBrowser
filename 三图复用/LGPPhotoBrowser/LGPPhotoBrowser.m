@@ -475,6 +475,9 @@
     [_rightView clear];
     [_leftView clear];
     
+    UIView *view = [_currentView viewWithTag:1008];
+    [view removeFromSuperview];
+    
     [_leftView setImageWithURL:(_attribute==LGPPhotosIsOneDimensionalArray)?_photos[_leftIndex]:_photos[_leftLine][_leftIndex] placeholderImage:(_attribute==LGPPhotosIsOneDimensionalArray)?[self gitPlaceholderImage:_leftIndex and:0]:[self gitPlaceholderImage:_leftLine and:_leftIndex]];
     
     [_rightView setImageWithURL:(_attribute==LGPPhotosIsOneDimensionalArray)?_photos[_rightIndex]:_photos[_rightLine][_rightIndex] placeholderImage:(_attribute==LGPPhotosIsOneDimensionalArray)?[self gitPlaceholderImage:_rightIndex and:0]:[self gitPlaceholderImage:_rightLine and:_rightIndex]];
