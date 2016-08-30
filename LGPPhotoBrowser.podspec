@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "LGPPhotoBrowser"
-s.version      = "0.0.4"
+s.version      = "0.0.5"
 s.summary      = "The most easy way for autoLayout.    一个图片浏览，可以旋转放大，左右滑动"
 
 s.homepage     = "https://github.com/LiaoGuopeng/LGPPhotoBrowser"
@@ -13,7 +13,7 @@ s.author             = { "guopeng liao" => "756581014@qq.com" }
 s.platform     = :ios
 s.platform     = :ios, "7.0"
 
-s.source       = { :git => "https://github.com/LiaoGuopeng/LGPPhotoBrowser", :tag => "0.0.4"}
+s.source       = { :git => "https://github.com/LiaoGuopeng/LGPPhotoBrowser", :tag => "0.0.5"}
 
 s.source_files  = "三图复用/LGPPhotoBrowser/**/*.{h,m}"
 
