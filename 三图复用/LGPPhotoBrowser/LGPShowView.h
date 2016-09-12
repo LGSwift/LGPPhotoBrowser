@@ -23,7 +23,7 @@ typedef enum {
 @interface LGPShowView : UIView
 
 @property (nonatomic,weak)UIButton *but;
-@property (nonatomic,strong)NSArray *buttonTitles;
+@property (nonatomic,strong)NSMutableArray *buttonTitles;
 @property (nonatomic,assign)LGPViewFormat format;
 
 @property (nonatomic,weak)id<ButtonClickDelegate>delegate;
@@ -31,4 +31,6 @@ typedef enum {
 + (LGPShowView *)SharedWindow;
 
 - (void)show;
+
+- (void)buttonTitlesAddArray:(NSArray *)array;
 @end

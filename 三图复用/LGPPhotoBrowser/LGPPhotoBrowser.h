@@ -58,6 +58,7 @@ typedef enum {
 
 @property (nonatomic,strong)UIButton *headRightButton;//右上角
 @property (nonatomic,strong)UIButton *backButtom;//返回的按钮，可以自定义  如果完全自定义请在点击方法里调用disMiss消失界面
+@property (nonatomic)BOOL detectorTypeQRCode; //点击右上角是否检测图片有没有二维码
 @property (nonatomic)BOOL ifShowPromptview;//是否显示回到第一张的提示  默认不显示
 
 //一维数组：photos[line]   二维数组： photos[line][column]  就是第一个显示的图片

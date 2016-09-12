@@ -129,10 +129,33 @@
 }
 
 - (void)button:(UIButton *)button{
-    LGPShowView *showView = [LGPShowView SharedWindow];
+    __block LGPShowView *showView = [LGPShowView SharedWindow];
     NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:@[@"保存图片",@"保存旋转状态图片"]];
     if (self.showViewArr.count) {
         [arr addObjectsFromArray:self.showViewArr];
+    }
+    if (self.detectorTypeQRCode) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage * pickerImage = _currentView.image;
+            NSData * imageData = UIImagePNGRepresentation(pickerImage);
+            CIImage * ciImage = [CIImage imageWithData:imageData];
+            
+            // 创建探测器
+            CIDetector * detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy:CIDetectorAccuracyLow}];
+            NSArray * feature = [detector featuresInImage:ciImage];
+            NSString * content;
+            for (CIQRCodeFeature * result in feature)
+            {
+                content = result.messageString;
+            }
+            if (content){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //UI修改
+                    NSArray *arr = @[@"识别图中二维码"];
+                    [showView buttonTitlesAddArray:arr];
+                });
+            }
+        });
     }
     showView.buttonTitles = arr;
     showView.format=LGPViewFormatIsOptions;

@@ -304,4 +304,30 @@
 
 }
 
+- (void)buttonTitlesAddArray:(NSArray *)array{
+    if (self.format!=LGPViewFormatIsBlackBar) {
+        [self.buttonTitles addObjectsFromArray:array];
+        UITableView *view = (UITableView *)[self viewWithTag:1008];
+        if (!array.count) {
+            return;
+        }
+        UIWindow *v =  [UIApplication sharedApplication].windows.firstObject;
+        
+        [_showView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@((self.buttonTitles.count+1)*44+5));
+        }];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            [v layoutIfNeeded];
+        }];
+        
+        NSMutableArray *indexs = [NSMutableArray array];
+        for (int i = 0; i<array.count; i++) {
+            NSIndexPath *index = [NSIndexPath indexPathForRow:i+2 inSection:0];
+            [indexs addObject:index];
+        }
+        [view insertRowsAtIndexPaths:indexs withRowAnimation:UITableViewRowAnimationBottom];
+    }
+}
+
 @end
